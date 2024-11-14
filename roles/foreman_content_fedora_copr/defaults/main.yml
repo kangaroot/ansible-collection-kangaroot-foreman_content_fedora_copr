@@ -1,0 +1,110 @@
+---
+# noqa: var-naming[no-role-prefix]
+# defaults file for foreman_content_fedora_copr
+
+#######################################
+### URLS
+#######################################
+
+### FEDORA COPR
+
+foreman_repo_baseurl_fedora_copr: https://download.copr.fedorainfracloud.org/results
+
+
+#######################################
+### ENABLE VARS
+#######################################
+
+### FEDORA COPR
+
+foreman_enable_fedora_copr: false
+
+foreman_enable_fedora_copr_dgoodwin_subscription_manager: false
+foreman_enable_fedora_copr_dgoodwin_subscription_manager_ol6: false
+foreman_enable_fedora_copr_dgoodwin_subscription_manager_ol7: "{{ foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool }}"
+
+foreman_enable_fedora_copr_dmann_subscription_manager: "{{ foreman_enable_fedora_copr | bool }}"
+foreman_enable_fedora_copr_dmann_subscription_manager_ol8: "{{ foreman_enable_fedora_copr_dmann_subscription_manager | bool }}"
+
+
+#######################################
+### PRODUCT DEFAULTS
+#######################################
+
+### FEDORA COPR
+
+foreman_products_defaults_download_policy_fedora_copr: "{{ foreman_products_defaults_download_policy }}"
+foreman_products_defaults_mirroring_policy_fedora_copr: mirror_content_only
+foreman_products_defaults_verify_ssl_on_sync_fedora_copr: "{{ foreman_products_defaults_verify_ssl_on_sync | bool }}"
+foreman_products_defaults_http_proxy_policy_fedora_copr: "{{ foreman_products_defaults_http_proxy_policy }}"
+foreman_products_defaults_unprotected_fedora_copr: "{{ foreman_products_defaults_unprotected | bool }}"
+
+
+#######################################
+### ORGANIZATION VARS
+#######################################
+
+### FEDORA COPR
+
+foreman_organization_fedora_copr: "{{ foreman_organization }}"
+
+foreman_organization_fedora_copr_dgoodwin_subscription_manager: "{{ foreman_organization_fedora_copr }}"
+foreman_organization_fedora_copr_dgoodwin_subscription_manager_ol6: "{{ foreman_organization_fedora_copr_dgoodwin_subscription_manager }}"
+foreman_organization_fedora_copr_dgoodwin_subscription_manager_ol7: "{{ foreman_organization_fedora_copr_dgoodwin_subscription_manager }}"
+
+foreman_organization_fedora_copr_dmann_subscription_manager: "{{ foreman_organization_fedora_copr }}"
+foreman_organization_fedora_copr_dmann_subscription_manager_ol8: "{{ foreman_organization_fedora_copr_dmann_subscription_manager }}"
+
+
+#######################################
+### ORGANIZATION VARS
+#######################################
+
+### FEDORA COPR
+
+foreman_cv_allow_promote_fedora_copr: "{{ foreman_cv_allow_promote | bool }}"
+
+foreman_cv_allow_promote_fedora_copr_dgoodwin_subscription_manager: "{{ foreman_cv_allow_promote_fedora_copr | bool }}"
+foreman_cv_allow_promote_fedora_copr_dgoodwin_subscription_manager_ol6: "{{ foreman_cv_allow_promote_fedora_copr_dgoodwin_subscription_manager | bool }}"
+foreman_cv_allow_promote_fedora_copr_dgoodwin_subscription_manager_ol7: "{{ foreman_cv_allow_promote_fedora_copr_dgoodwin_subscription_manager | bool }}"
+
+foreman_cv_allow_promote_fedora_copr_dmann_subscription_manager: "{{ foreman_cv_allow_promote_fedora_copr | bool }}"
+foreman_cv_allow_promote_fedora_copr_dmann_subscription_manager_ol8: "{{ foreman_cv_allow_promote_fedora_copr_dmann_subscription_manager | bool }}"
+
+
+#######################################
+### CONTENT
+#######################################
+
+foreman_content_credentials_fedora_copr_main: []
+foreman_content_credentials_fedora_copr: "{{ ( foreman_content_credentials_fedora_copr_main | default([]) if foreman_enable_fedora_copr | bool else [] ) |
+  union( foreman_content_credentials_fedora_copr_dgoodwin_subscription_manager | default([]) if foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool else [] ) |
+  union( foreman_content_credentials_fedora_copr_dmann_subscription_manager | default([]) if foreman_enable_fedora_copr_dmann_subscription_manager | bool else [] )
+  }}"
+
+foreman_products_fedora_copr_main: []
+foreman_products_fedora_copr: "{{ ( foreman_products_fedora_copr_main | default([]) if foreman_enable_fedora_copr | bool else [] ) |
+  union( foreman_products_fedora_copr_dgoodwin_subscription_manager | default([]) if foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool else [] ) |
+  union( foreman_products_fedora_copr_dmann_subscription_manager | default([]) if foreman_enable_fedora_copr_dmann_subscription_manager | bool else [] )
+  }}"
+
+foreman_content_views_fedora_copr_main: []
+foreman_content_views_fedora_copr: "{{ ( foreman_content_views_fedora_copr_main | default([]) if foreman_enable_fedora_copr | bool else [] ) |
+  union( foreman_content_views_fedora_copr_dgoodwin_subscription_manager | default([]) if foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool else [] ) |
+  union( foreman_content_views_fedora_copr_dmann_subscription_manager | default([]) if foreman_enable_fedora_copr_dmann_subscription_manager | bool else [] )
+  }}"
+
+foreman_activation_keys_fedora_copr_main: []
+foreman_activation_keys_fedora_copr: "{{ ( foreman_activation_keys_fedora_copr_main | default([]) if foreman_enable_fedora_copr | bool else [] ) |
+  union( foreman_activation_keys_fedora_copr_dgoodwin_subscription_manager | default([]) if foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool else [] ) |
+  union( foreman_activation_keys_fedora_copr_dmann_subscription_manager | default([]) if foreman_enable_fedora_copr_dmann_subscription_manager | bool else [] )
+  }}"
+
+foreman_sync_plan_products_fedora_copr_main:
+  - "{{ foreman_product_name_prefix | default('') }}Fedora COPR"
+
+foreman_sync_plan_products_fedora_copr: "{{ ( foreman_sync_plan_products_fedora_copr_main | default([]) if foreman_enable_fedora_copr | bool else [] ) |
+  union( foreman_sync_plan_products_fedora_copr_dgoodwin_subscription_manager | default([]) if foreman_enable_fedora_copr_dgoodwin_subscription_manager | bool else [] ) |
+  union( foreman_sync_plan_products_fedora_copr_dmann_subscription_manager | default([]) if foreman_enable_fedora_copr_dmann_subscription_manager | bool else [] )
+  }}"
+
